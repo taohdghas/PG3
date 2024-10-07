@@ -1,12 +1,53 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+#include <Windows.h>
+
+// コールバック関数
+typedef void (*PFunc)(bool);
+
+void DisplayResult(bool isCorrect) {
+    if (isCorrect) {
+        printf("正解\n");
+    }
+    else {
+        printf("不正解\n");
+    }
+}
+
+// 奇数か偶数かを判定する関数
+bool IsEven(int number) {
+    return number % 2 == 0;
+}
+
+// サイコロを振る関数
+int RollDice() {
+    return rand() % 6 + 1;
+}
+
+// ユーザーの入力を受け付け
+void GuessOddOrEven(PFunc callback) {
+    int dice = RollDice();
+    int userGuess;
+    bool isEven = IsEven(dice);
+
+    printf("サイコロの出目が奇数か偶数か当ててください (奇数: 1, 偶数: 2): ");
+    scanf_s("%d", &userGuess);
+
+    bool userIsEven = (userGuess == 2);
+
+    printf("判定中...\n");
+    Sleep(3000);  // 3秒待つ
+
+   //結果を表示
+    callback(isEven == userIsEven);
+}
 
 int main() {
+    srand(time(NULL)); 
 
-	return 0;
+    GuessOddOrEven(DisplayResult);
+
+    return 0;
 }
-/*
-以下の条件を満たすプログラムを作成すること。
-サイコロを振って出目が奇数か偶数かをユーザーに当ててもらうゲームを作る
-[条件]
-1.抽選結果はランダムで
-*/
