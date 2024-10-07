@@ -15,24 +15,20 @@ void DisplayResult(bool isCorrect) {
         printf("不正解\n");
     }
 }
-
-// 奇数か偶数かを判定する関数
+// 奇数か偶数かを判定
 bool IsEven(int number) {
     return number % 2 == 0;
 }
-
 // サイコロを振る関数
 int RollDice() {
     return rand() % 6 + 1;
 }
-
-// ユーザーの入力を受け付け
 void GuessOddOrEven(PFunc callback) {
     int dice = RollDice();
     int userGuess;
     bool isEven = IsEven(dice);
 
-    printf("サイコロの出目が奇数か偶数か当ててください (奇数: 1, 偶数: 2): ");
+    printf("サイコロの出目が奇数か偶数か当てて!(奇数: 1, 偶数: 2): ");
     scanf_s("%d", &userGuess);
 
     bool userIsEven = (userGuess == 2);
